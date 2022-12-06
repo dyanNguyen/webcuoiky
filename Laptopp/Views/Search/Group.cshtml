@@ -1,0 +1,27 @@
+﻿@model IEnumerable<IGrouping<int?, Laptopp.Models.Game>>
+@{
+    ViewBag.Title = "Group";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+
+
+<h2>DANH SÁCH THEO THỂ LOẠI </h2>
+@foreach (var item in Model)
+{
+    <div>
+        <table border="1">
+            <tr style="background-color:burlywood; font-weight:bold;">
+                <td>Mã Game</td>
+                <td>Tên Game</td>
+            </tr>
+            @foreach (var Game in item)
+            {
+                <tr>
+                    <td>@Game.Game_ID</td>
+                    <td>@Game.Game_Name</td>                    
+                </tr>
+            }
+        </table>
+    </div>
+}

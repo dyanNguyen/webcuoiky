@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Laptopp.Models.ThanhToan>
+
+@{
+    ViewBag.Title = "ĐƠN HÀNG";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>ĐƠN HÀNG</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DaThanhToan)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CustID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Payment_ID)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.DaThanhToan)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.CustID)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Payment_ID)
+    </td>
+    <td>
+        <a href="@Url.Action( "Edit","DonHang", new { id = item.Payment_ID })" class="btn btn-warning" role="button">Sửa</a>
+        <a href="@Url.Action( "Details","DonHang", new { id = item.Payment_ID })" class="btn btn-success" role="button">Chi tiết</a>
+        <a href="@Url.Action( "Delete","DonHang", new { id = item.Payment_ID })" class="btn btn-danger" role="button">Xóa</a>
+
+    </td>
+</tr>
+}
+
+</table>

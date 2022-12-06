@@ -1,0 +1,80 @@
+﻿@using Laptopp.Models
+@using PagedList.Mvc;
+@model  PagedList.PagedList<Laptopp.Models.Game>
+@helper Truncate(string l, int length)
+{
+    if (l.Length < length)
+    {
+        @l
+    }
+    else
+    {
+        @l.Substring(0, length)<text>...</text>
+    }
+}
+@{
+    ViewBag.Title = "SẢN PHẨM";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2 style="text-align:center">QUẢN LÍ THÔNG TIN SẢN PHẨM</h2>
+
+<p>
+    @Html.ActionLink("Thêm mới", "Create", "SanPham")
+</p>
+<table class="table">
+    <tr>
+        <th style="text-align:center;width:140px">
+            Tên Game
+        </th>
+        <th style="text-align:center;width:200px">
+            Mô tả
+        </th>
+        <th style="text-align:center;width:80px">
+            Ảnh bìa
+            @*@Html.DisplayNameFor(model => model.First().AnhBia)*@
+        </th>
+        <th style="text-align:center;width:80px">
+            Giá bán
+            @*@Html.DisplayNameFor(model => model.First().Price)*@
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Truncate(item.Game_Name, 50)
+            </td>
+            <td>
+                @Html.Raw(Truncate(item.MoTa, 70).ToString())
+            </td>
+            <td>
+                <img src="~/Content/Images/@item.AnhBia" style="width:50px;" />
+            </td>
+
+            <td>
+                @Html.FormatValue(item.Price, "{0:#,##0}").000VNĐ
+            </td>
+            <td>
+                <a href=" @Url.Action("Edit", "SanPham", new { id =item.Game_ID })" class="btn btn-warning" role="button">Sửa</a>
+                <a href=" @Url.Action("Details", "SanPham", new { id = item.Game_ID })" class="btn btn-success" role="button">Chi tiết</a>
+                <a href=" @Url.Action("Delete", "SanPham", new { id = item.Game_ID })" class="btn btn-danger" role="button">Xóa</a>
+            </td>
+
+        </tr>
+    }
+
+</table>
+
+@*Tạo liên kết phần trang*@
+Trang @(Model.PageCount< Model.PageNumber ?0:Model.PageNumber)/@Model.PageCount
+<div class="MenuTrang">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))
+</div>
+<style>
+    .MenuTrang {
+        display: inline;
+        text-align: center;
+    }
+</style>

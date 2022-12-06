@@ -1,0 +1,69 @@
+﻿@model Laptopp.Models.Game
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<style type="text/css">
+    img {
+        width: 200px;
+        margin-bottom: 20px;
+    }
+</style>
+
+<h2 style="text-align:center">CHI TIẾT SẢN PHẨM</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Tên Game:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Game_Name)
+        </dd>
+
+        <dt>
+            Mô tả:
+        </dt>
+
+        <dd>
+            @Html.Raw(@Model.MoTa.ToString().Replace("\n", "</p><p>&nbsp&nbsp&nbsp&nbsp&nbsp"))
+        </dd>
+
+        <dt>
+            Ảnh bìa:
+        </dt>
+
+        <dd>
+            <img src="~Content/Images/@Model.AnhBia" alt="@Model.Game_Name">
+        </dd>
+
+        <dt>
+            Ngày cập nhật:
+        </dt>
+
+        <dt>
+            Số lượng bán:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Quantity)
+        </dd>
+
+        <dt>
+            Giá bán:
+        </dt>
+
+        <dd>
+            @Html.FormatValue(@Model.Price, "{0:#,##0}") VNĐ
+        </dd>
+
+    </dl>
+</div>
+
+<p>
+    @Html.ActionLink("Sửa", "Edit", new { id = Model.Game_ID }) |
+    @Html.ActionLink("VỀ TRANG QUẢN LÝ SẢN PHẨM", "Index", "Admin")
+</p>

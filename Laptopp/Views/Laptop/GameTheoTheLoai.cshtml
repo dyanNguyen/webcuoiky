@@ -1,0 +1,45 @@
+﻿@using Laptopp.Models;
+@using PagedList.Mvc;
+@*@model IEnumerable<Laptopp.Models.Game>*@
+@model PagedList.PagedList<Game>
+@{
+    ViewBag.Title = "GameTheoTheLoai";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<h2>Game Theo Thể Loại</h2>
+
+<hr>
+<div class="row text-center">
+    @foreach (var game in Model)
+    {
+        <div class="col-sm-4 col-md-4 col-lg-4 col-xs-6">
+            <div class="thumbnail">
+                <img src="~/Content/Images/@game.AnhBia" alt="Thumbnail Image 1" class="img-responsive img-rounded imgbook " style="width:auto;">
+                <div class="media-body">
+                    <h4 style=" min-height:40px;">
+                        <a href="@Url.Action("ChiTietGame","Lap",new {id = game.Game_ID })">@game.Game_Name</a>
+                    </h4>
+                    <h4 style="color:orangered"> <span>@Html.FormatValue(game.Price, "{0:#,##0}").000₫</span></h4>
+                    <p>
+                        <a href="@Url.Action("ThemGioHang", "GioHang", new { ml = game.Game_ID, url = Request.Url.ToString()})" class="btn btn-primary" role="button">
+                            <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Thêm vào giỏ hàng
+                        </a>
+                    </p>
+
+                </div>
+            </div>
+        </div>
+    }
+</div>
+@*Tạo liên kết chân trang*@
+    Trang@(Model.PageCount<Model.PageNumber?0:Model.PageNumber)/@Model.PageCount
+    <div class="MenuTrang">
+        @Html.PagedListPager(Model, page => Url.Action("GameTheoTheLoai", new { iMaTL = ViewBag.idLoaiGame, page = page }))
+    </div>
+    <style>
+        .MenuTrang {
+            display: inline;
+            text-align: center;
+        }
+    </style>

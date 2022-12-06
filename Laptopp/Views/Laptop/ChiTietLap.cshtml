@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "ChiTietLap";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+@model Laptopp.Models.Game
+@{
+    ViewBag.Title = "ChiTietLap";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+    <link href="~/Css/StyleSheet1.css" rel="stylesheet" />
+}
+
+
+
+<div class="container">
+    <div class="row px-5">
+        <div class="col-md-4 ">
+            <div class="img-sp imglap">
+                <img class="bb" style="width:300px; height:200px" src="~/Content/Images/@Model.AnhBia" alt="@Model.Game_Name">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="thumbnail">
+                <div>
+                    <h4 style="color:red;">@Model.Game_Name</h4>
+
+                </div>
+                <span style="font-weight:bold" class="glyphicon glyphicon-thumbs-up" />Tình trạng: <span style="color:forestgreen">Còn hàng</span>
+                <div class="motalap py-2">
+                    <p>
+                        @Html.Raw(Model.MoTa.ToString().Replace("\n", "</p><p>&nbsp&nbsp&nbsp&nbsp&nbsp"))
+                    </p>
+                </div>
+                <div>                  
+                    <p><span style="font-weight:bold">Giá Bán: </span><h4 style="color:orangered"><span>@Html.FormatValue(@Model.Price, "{0:#,##0}").₫</span></h4></p>
+                    <p class="text-center">
+                        <a href="@Url.Action("ThemGioHang", "GioHang", new { ml = Model.Game_ID, url = Request.Url.ToString()})" new {id=@Model.Game_ID } class="btn btn-success" role="button">
+                            <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true">   Thêm vào giỏ hàng</span>
+                        </a>
+
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
